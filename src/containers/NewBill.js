@@ -22,9 +22,12 @@ export default class NewBill {
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
-    formData.append('file', file)
-    formData.append('email', email)
-
+    //vérifier que le fichier est un fichier .jpg, .jpeg ou .png
+    const fileExtension = fileName.split('.').pop().toLowerCase();
+    if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
+      formData.append('file', file)
+      formData.append('email', email)
+    
     this.store
       .bills()
       .create({
@@ -39,6 +42,10 @@ export default class NewBill {
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
+  } else {
+      alert('Ce type de fichier n\'est pas autorisé, seules les fichiers .jpg, .jpeg, .png sont acceptés');
+      e.target.value = '';
+    }
   }
   handleSubmit = e => {
     e.preventDefault()
