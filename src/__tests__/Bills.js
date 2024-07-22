@@ -26,7 +26,7 @@ describe("Given I am connected as an employee", () => {
       await waitFor(() => screen.getByTestId('icon-window'))
       const windowIcon = screen.getByTestId('icon-window')
       //to-do write expect expression
-
+      expect(windowIcon).toHaveClass('icon-window-active')
     })
     test("Then bills should be ordered from earliest to latest", () => {
       //trier les bills par date du plus récent au plus ancien
